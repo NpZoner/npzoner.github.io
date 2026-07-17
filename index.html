@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
   <title>NpZoner · portfolio</title>
+  <!-- Font Awesome 6 for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -13,24 +14,24 @@
     }
 
     :root {
-      --bg: #0b0b0f;
-      --surface: #1a1a22;
-      --text: #f0f0f5;
-      --text-soft: #b0b0c0;
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --text: #f0f0f0;
+      --text-soft: #b0b0b0;
       --accent: #ffffff;
-      --border: #2a2a35;
-      --shadow-glow: 0 0 18px rgba(255, 255, 255, 0.7);
-      --transition-speed: 0.3s;
+      --border: #2a2a2a;
+      --shadow-glow: 0 0 12px rgba(255, 255, 255, 0.6);
+      --transition-speed: 0.25s;
     }
 
     body.light-mode {
-      --bg: #f4f4f9;
+      --bg: #f5f5f7;
       --surface: #ffffff;
-      --text: #1a1a2e;
-      --text-soft: #4a4a5a;
-      --accent: #0f0f1a;
-      --border: #d0d0da;
-      --shadow-glow: 0 0 15px rgba(0, 0, 0, 0.5);
+      --text: #1e1e1e;
+      --text-soft: #4a4a4a;
+      --accent: #111111;
+      --border: #dcdcdc;
+      --shadow-glow: 0 0 12px rgba(0, 0, 0, 0.4);
     }
 
     body {
@@ -45,18 +46,19 @@
       line-height: 1.5;
     }
 
-    /* navbar */
+    /* ----- sticky navbar ----- */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(18, 18, 24, 0.85);
-      backdrop-filter: blur(14px);
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0.8rem 2rem;
+      backdrop-filter: blur(12px);
+      background: rgba(18, 18, 18, 0.8);
       transition: background 0.3s, border 0.3s;
     }
 
@@ -75,611 +77,19 @@
       font-size: 2rem;
       color: var(--accent);
       cursor: pointer;
-      filter: drop-shadow(0 0 10px white);
+      filter: drop-shadow(0 0 8px white);
       transition: transform 0.2s, filter 0.3s;
+      background: transparent;
       padding: 0.2rem;
+      line-height: 1;
     }
 
     body.light-mode .theme-toggle-btn {
-      filter: drop-shadow(0 0 8px #222);
+      filter: drop-shadow(0 0 6px #222);
     }
 
     .theme-toggle-btn:hover {
-      transform: scale(1.15);
-    }
-
-    .nav-center {
-      display: flex;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .nav-btn {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      padding: 0.4rem 0.9rem;
-      border-radius: 2rem;
-      transition: all 0.2s;
-      border-bottom: 2px solid transparent;
-    }
-
-    .nav-btn:hover {
-      color: var(--accent);
-      border-bottom: 2px solid var(--accent);
-    }
-
-    .nav-btn.active {
-      color: var(--accent);
-      border-bottom: 2px solid var(--accent);
-      font-weight: 700;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .icon-link {
-      color: var(--text);
-      font-size: 1.7rem;
-      transition: color 0.2s, transform 0.2s, filter 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .icon-link:hover {
-      color: var(--accent);
-      transform: translateY(-3px);
-      filter: drop-shadow(0 0 8px currentColor);
-    }
-
-    .translate-icon {
-      background: none;
-      border: none;
-      color: var(--text);
-      font-size: 1.7rem;
-      cursor: pointer;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .translate-icon:hover {
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 2rem 2rem 3rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-      animation: fadeSlide 0.4s ease;
-    }
-
-    @keyframes fadeSlide {
-      0% { opacity: 0.3; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active-page {
-      display: block;
-    }
-
-    /* HOME fancy */
-    .home-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 70vh;
-      text-align: center;
-    }
-
-    .glow-text {
-      font-size: clamp(4rem, 13vw, 7.5rem);
-      font-weight: 800;
-      letter-spacing: 3px;
-      margin-bottom: 1.8rem;
-      background: linear-gradient(135deg, #ffffff 20%, #d0d0ff 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 25px rgba(255,255,255,0.5);
-      transition: all 0.4s ease;
-      cursor: default;
-      animation: softPulse 2.5s infinite alternate;
-    }
-
-    body.light-mode .glow-text {
-      background: linear-gradient(135deg, #1e1e2f 20%, #3a3a5a 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 18px rgba(0,0,0,0.3);
-      animation: softPulseLight 2.5s infinite alternate;
-    }
-
-    @keyframes softPulse {
-      0% { text-shadow: 0 0 18px rgba(255,255,255,0.5); transform: scale(1); }
-      100% { text-shadow: 0 0 35px rgba(255,255,255,0.9); transform: scale(1.02); }
-    }
-
-    @keyframes softPulseLight {
-      0% { text-shadow: 0 0 12px rgba(0,0,0,0.3); }
-      100% { text-shadow: 0 0 25px rgba(0,0,0,0.6); }
-    }
-
-    .glow-text:hover {
-      transform: scale(1.03);
-      text-shadow: 0 0 45px rgba(255,255,255,1);
-    }
-
-    .subtitle {
-      font-size: 1.4rem;
-      color: var(--text-soft);
-      max-width: 650px;
-      transition: color 0.3s;
-    }
-
-    /* projects vertical centering */
-    .projects-layout {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      align-items: center; 
-      min-height: 65vh;
-    }
-
-    .vertical-tabs {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      min-width: 160px;
-      border-right: 1px solid var(--border);
-      padding-right: 1.5rem;
-      justify-content: center;
-    }
-
-    .tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-soft);
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-align: left;
-      padding: 0.5rem 1.2rem;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .tab-btn.active-tab {
-      color: var(--accent);
-      background: rgba(255,255,255,0.07);
-    }
-
-    .tab-content-area {
-      flex: 1;
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .center-frame {
-      flex: 2;
-      min-width: 280px;
-      background: var(--surface);
-      border-radius: 24px;
-      padding: 1.8rem;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.4);
-    }
-
-    .right-frame {
-      flex: 1.2;
-      min-width: 220px;
-      background: var(--surface);
-      border-radius: 24px;
-      padding: 1.8rem;
-      color: var(--text);
-    }
-
-    .game-image-link img {
-      width: 100%;
-      border-radius: 18px;
-      transition: transform 0.25s;
-    }
-
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border-radius: 16px;
-    }
-
-    .ui-gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .top-row {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .small-img, .large-img {
-      cursor: pointer;
-      border-radius: 14px;
-      object-fit: cover;
-      transition: transform 0.2s;
-    }
-
-    .small-img:hover, .large-img:hover {
-      transform: scale(1.03);
-    }
-
-    .lightbox {
-      display: none;
-      position: fixed;
-      top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.92);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 85%;
-      border-radius: 16px;
-    }
-
-    /* reviews animated cards */
-    .reviews-scroll {
-      display: flex;
-      overflow-x: auto;
-      gap: 2rem;
-      padding: 1.5rem 0.5rem;
-      scroll-behavior: smooth;
-    }
-
-    .review-card {
-      min-width: 280px;
-      max-width: 320px;
-      background: var(--surface);
-      border-radius: 28px;
-      padding: 2rem 1.8rem;
-      box-shadow: 0 12px 22px rgba(0,0,0,0.5);
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
-    }
-
-    .review-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: var(--accent);
-      box-shadow: 0 20px 30px rgba(255,255,255,0.15);
-      background: #252530;
-    }
-
-    body.light-mode .review-card:hover {
-      background: #f0f0f5;
-      box-shadow: 0 18px 28px rgba(0,0,0,0.2);
-    }
-
-    /* information thinner frame + animations */
-    .info-scroll {
-      max-height: 70vh;
-      overflow-y: auto;
-      padding: 1rem 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      max-width: 700px;
-      margin: 0 auto;
-      background: var(--surface);
-      border-radius: 32px;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.5);
-      transition: box-shadow 0.3s;
-    }
-
-    .info-scroll:hover {
-      box-shadow: 0 0 35px rgba(255,255,255,0.2);
-    }
-
-    .bold-center {
-      font-weight: 700;
-      font-size: 2rem;
-      text-align: center;
-      background: linear-gradient(to right, #ffffff, #b0b0ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: textGlow 2s infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 8px rgba(255,255,255,0.5); }
-      100% { text-shadow: 0 0 20px rgba(255,255,255,0.9); }
-    }
-
-    .default-text {
-      color: var(--text-soft);
-      font-size: 1.15rem;
-      line-height: 1.7;
-    }
-
-    .faq-item {
-      border-left: 4px solid var(--accent);
-      padding-left: 1.2rem;
-      transition: 0.2s;
-    }
-
-    .faq-item:hover {
-      background: rgba(255,255,255,0.05);
-      border-left-color: #ffd966;
-    }
-
-    @media (max-width: 750px) {
-      .navbar {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .nav-center {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
-</head>
-<body class="dark-mode">
-  <nav class="navbar">
-    <div class="nav-left">
-      <button class="theme-toggle-btn" id="themeToggle" aria-label="Switch theme">
-        <i class="fas fa-sun"></i>
-      </button>
-    </div>
-    <div class="nav-center">
-      <button class="nav-btn active" data-page="home">Home</button>
-      <button class="nav-btn" data-page="projects">Projects</button>
-      <button class="nav-btn" data-page="reviews">Reviews</button>
-      <button class="nav-btn" data-page="information">Information</button>
-    </div>
-    <div class="nav-right">
-      <a href="https://www.roblox.com" target="_blank" class="icon-link" title="Roblox profile"><i class="fab fa-roblox"></i></a>
-      <a href="https://funpay.com" target="_blank" class="icon-link" title="Funpay"><i class="fas fa-wallet"></i></a>
-      <button id="translateBtn" class="translate-icon" title="Translate"><i class="fas fa-language"></i></button>
-    </div>
-  </nav>
-
-  <div class="main-content" id="mainContent">
-    <!-- Home Page -->
-    <div id="homePage" class="page active-page">
-      <div class="home-container">
-        <h1 class="glow-text">NpZoner</h1>
-        <p class="subtitle" id="homeDesc">veteran roblox developer specialized on scripting with over 6 years of experience</p>
-      </div>
-    </div>
-
-    <!-- Projects Page -->
-    <div id="projectsPage" class="page">
-      <div class="projects-layout">
-        <div class="vertical-tabs">
-          <button class="tab-btn active-tab" data-tab="games">Games</button>
-          <button class="tab-btn" data-tab="scripting">Scripting</button>
-          <button class="tab-btn" data-tab="uidesign">Ui-Design</button>
-        </div>
-        <div class="tab-content-area" id="tabContentArea"></div>
-      </div>
-    </div>
-
-    <!-- Reviews Page -->
-    <div id="reviewsPage" class="page">
-      <h2 style="margin-bottom:1.5rem; font-size:2.2rem;">Community reviews</h2>
-      <div class="reviews-scroll" id="reviewsContainer">
-        <div class="review-card">
-          <p style="font-weight:bold; font-size:1.4rem;">@AlexDev</p>
-          <p style="margin:0.8rem 0;">"NpZoner's scripts are incredibly optimized. Best systems I've used."</p>
-          <p style="color:var(--text-soft);">⭐ 5/5</p>
-        </div>
-        <div class="review-card">
-          <p style="font-weight:bold; font-size:1.4rem;">@MiaBuilds</p>
-          <p style="margin:0.8rem 0;">"Clean UI design and fast delivery. Highly recommended."</p>
-          <p style="color:var(--text-soft);">⭐ 5/5</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Information Page -->
-    <div id="informationPage" class="page">
-      <div class="info-scroll" id="infoScroll">
-        <div class="bold-center">About NpZoner</div>
-        <div class="default-text">NpZoner is a veteran Roblox developer with deep expertise in Lua scripting, game architecture, and UI/UX design.</div>
-        <div class="bold-center">FAQ</div>
-        <div class="faq-item default-text"><strong>How to order?</strong> Contact via Funpay or Roblox messages.</div>
-        <div class="faq-item default-text"><strong>Experience?</strong> Over 6 years, 40+ completed projects.</div>
-        <div class="faq-item default-text"><strong>Scripting languages?</strong> Lua, Luau, TypeScript (roblox-ts).</div>
-        <div class="bold-center">Meta</div>
-        <div class="default-text">🔗 <a href="#" style="color:var(--accent);">npzoner.dev</a> · portfolio updated 2025</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
-    <img id="lightboxImg" src="" alt="zoomed image">
-  </div>
-
-  <script>
-    (() => {
-      let currentPage = 'home';
-      let currentTab = 'games';
-      let isRussian = false;
-
-      const body = document.body;
-      const themeToggle = document.getElementById('themeToggle');
-      const navButtons = document.querySelectorAll('.nav-btn');
-      const pages = {
-        home: document.getElementById('homePage'),
-        projects: document.getElementById('projectsPage'),
-        reviews: document.getElementById('reviewsPage'),
-        information: document.getElementById('informationPage')
-      };
-      const tabContentArea = document.getElementById('tabContentArea');
-      const translateBtn = document.getElementById('translateBtn');
-      const homeDesc = document.getElementById('homeDesc');
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightboxImg');
-
-      const translations = {
-        homeDesc: {
-          en: "veteran roblox developer specialized on scripting with over 6 years of experience",
-          ru: "опытный разработчик Roblox, специализируюсь на скриптинге, более 6 лет опыта"
-        },
-        gamesTab: { en: "Games", ru: "Игры" },
-        scriptingTab: { en: "Scripting", ru: "Скриптинг" },
-        uiTab: { en: "Ui-Design", ru: "Дизайн UI" },
-        reviewsTitle: { en: "Community reviews", ru: "Отзывы сообщества" },
-        review1name: { en: "@AlexDev", ru: "@АлексDev" },
-        review1text: { en: "\"NpZoner's scripts are incredibly optimized. Best systems I've used.\"", ru: "\"Скрипты NpZoner невероятно оптимизированы.\"" },
-        review2name: { en: "@MiaBuilds", ru: "@МияСтроит" },
-        review2text: { en: "\"Clean UI design and fast delivery. Highly recommended.\"", ru: "\"Чистый дизайн и быстрая работа.\"" },
-        infoBold1: { en: "About NpZoner", ru: "О NpZoner" },
-        infoText1: { en: "NpZoner is a veteran Roblox developer with deep expertise in Lua scripting, game architecture, and UI/UX design.", ru: "NpZoner — опытный разработчик с глубокими знаниями Lua и архитектуры." },
-        faqQ1: { en: "How to order?", ru: "Как заказать?" },
-        faqA1: { en: "Contact via Funpay or Roblox messages.", ru: "Свяжитесь через Funpay или Roblox." },
-        faqQ2: { en: "Experience?", ru: "Опыт?" },
-        faqA2: { en: "Over 6 years, 40+ completed projects.", ru: "Более 6 лет, 40+ проектов." },
-        faqQ3: { en: "Scripting languages?", ru: "Языки?" },
-        faqA3: { en: "Lua, Luau, TypeScript (roblox-ts).", ru: "Lua, Luau, TypeScript." },
-        metaLink: { en: "npzoner.dev · portfolio updated 2025", ru: "npzoner.dev · портфолио 2025" }
-      };
-
-      function switchPage(pageId) {
-        if (currentPage === pageId) return;
-        Object.values(pages).forEach(p => p.classList.remove('active-page'));
-        pages[pageId].classList.add('active-page');
-        currentPage = pageId;
-        navButtons.forEach(btn => {
-          btn.classList.toggle('active', btn.getAttribute('data-page') === pageId);
-        });
-        if (pageId === 'projects') {
-          renderTabContent(currentTab);
-          activateTabButton(currentTab);
-        }
-        if (isRussian) applyRussianTexts();
-      }
-
-      function activateTabButton(tabId) {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-          btn.classList.toggle('active-tab', btn.getAttribute('data-tab') === tabId);
-        });
-      }
-
-      function renderTabContent(tabId) {
-        if (!tabContentArea) return;
-        currentTab = tabId;
-        let html = '';
-        if (tabId === 'games') {
-          html = `<div class="center-frame"><a href="https://www.roblox.com" target="_blank" class="game-image-link"><img src="https://placehold.co/600x400/2d2d3a/white?text=Roblox+Game" alt="game"></a></div>
-                  <div class="right-frame"><h3>${isRussian?'Игровой проект':'Game Project'}</h3><p>${isRussian?'Нажмите на картинку чтобы перейти.':'Click image to visit Roblox game.'}</p></div>`;
-        } else if (tabId === 'scripting') {
-          html = `<div class="center-frame"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe></div></div>
-                  <div class="right-frame"><h3>${isRussian?'Скриптинг':'Scripting'}</h3><p>${isRussian?'Демонстрация сложной системы.':'Advanced inventory system demo.'}</p></div>`;
-        } else if (tabId === 'uidesign') {
-          html = `<div class="center-frame"><div class="ui-gallery"><div class="top-row">
-                  <img src="https://placehold.co/300x200/3a3a4a/white?text=UI+1" class="small-img" onclick="openLightbox(this.src)">
-                  <img src="https://placehold.co/300x200/4a4a5a/white?text=UI+2" class="small-img" onclick="openLightbox(this.src)">
-                  <img src="https://placehold.co/300x200/5a5a6a/white?text=UI+3" class="small-img" onclick="openLightbox(this.src)"></div>
-                  <img src="https://placehold.co/600x340/2a2a3a/white?text=Dashboard" class="large-img" onclick="openLightbox(this.src)"></div></div>
-                  <div class="right-frame"><h3>${isRussian?'Дизайн UI':'UI Design'}</h3><p>${isRussian?'Нажмите для увеличения.':'Click to zoom images.'}</p></div>`;
-        }
-        tabContentArea.innerHTML = html;
-      }
-
-      window.openLightbox = (src) => {
-        lightboxImg.src = src;
-        lightbox.style.display = 'flex';
-      };
-
-      function setTheme(isLight) {
-        body.classList.toggle('light-mode', isLight);
-        body.classList.toggle('dark-mode', !isLight);
-        themeToggle.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-      }
-
-      themeToggle.addEventListener('click', () => setTheme(!body.classList.contains('light-mode')));
-
-      function applyRussianTexts() {
-        if (homeDesc) homeDesc.textContent = isRussian ? translations.homeDesc.ru : translations.homeDesc.en;
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-          const tab = btn.getAttribute('data-tab');
-          if (tab === 'games') btn.textContent = isRussian ? translations.gamesTab.ru : translations.gamesTab.en;
-          else if (tab === 'scripting') btn.textContent = isRussian ? translations.scriptingTab.ru : translations.scriptingTab.en;
-          else if (tab === 'uidesign') btn.textContent = isRussian ? translations.uiTab.ru : translations.uiTab.en;
-        });
-        const reviewCards = document.querySelectorAll('.review-card');
-        if (reviewCards[0]) {
-          reviewCards[0].querySelector('p:first-child').textContent = isRussian ? translations.review1name.ru : translations.review1name.en;
-          reviewCards[0].querySelector('p:nth-child(2)').textContent = isRussian ? translations.review1text.ru : translations.review1text.en;
-        }
-        if (reviewCards[1]) {
-          reviewCards[1].querySelector('p:first-child').textContent = isRussian ? translations.review2name.ru : translations.review2name.en;
-          reviewCards[1].querySelector('p:nth-child(2)').textContent = isRussian ? translations.review2text.ru : translations.review2text.en;
-        }
-        const infoBolds = document.querySelectorAll('#informationPage .bold-center');
-        if (infoBolds[0]) infoBolds[0].textContent = isRussian ? translations.infoBold1.ru : translations.infoBold1.en;
-        const defaultTexts = document.querySelectorAll('#informationPage .default-text');
-        if (defaultTexts[0]) defaultTexts[0].textContent = isRussian ? translations.infoText1.ru : translations.infoText1.en;
-        const faqItems = document.querySelectorAll('.faq-item');
-        if (faqItems[0]) faqItems[0].innerHTML = `<strong>${isRussian?translations.faqQ1.ru:translations.faqQ1.en}</strong> ${isRussian?translations.faqA1.ru:translations.faqA1.en}`;
-        if (faqItems[1]) faqItems[1].innerHTML = `<strong>${isRussian?translations.faqQ2.ru:translations.faqQ2.en}</strong> ${isRussian?translations.faqA2.ru:translations.faqA2.en}`;
-        if (faqItems[2]) faqItems[2].innerHTML = `<strong>${isRussian?translations.faqQ3.ru:translations.faqQ3.en}</strong> ${isRussian?translations.faqA3.ru:translations.faqA3.en}`;
-        const metaLink = document.querySelector('#informationPage .default-text:last-child');
-        if (metaLink) metaLink.innerHTML = `🔗 <a href="#" style="color:var(--accent);">${isRussian?translations.metaLink.ru:translations.metaLink.en}</a>`;
-        if (currentPage === 'projects') renderTabContent(currentTab);
-        const revTitle = document.querySelector('#reviewsPage h2');
-        if (revTitle) revTitle.textContent = isRussian ? translations.reviewsTitle.ru : translations.reviewsTitle.en;
-      }
-
-      translateBtn.addEventListener('click', () => {
-        isRussian = !isRussian;
-        applyRussianTexts();
-      });
-
-      navButtons.forEach(btn => btn.addEventListener('click', (e) => switchPage(e.currentTarget.getAttribute('data-page'))));
-      document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('tab-btn') && currentPage === 'projects') {
-          const tabId = e.target.getAttribute('data-tab');
-          renderTabContent(tabId);
-          activateTabButton(tabId);
-        }
-      });
-
-      setTheme(false);
-      renderTabContent('games');
-      applyRussianTexts();
-    })();
-  </script>
-</body>
-</html>      transform: scale(1.1);
+      transform: scale(1.1);
     }
 
     .nav-center {
