@@ -1,10 +1,720 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>NpZoner · portfolio</title>
+  <!-- Font Awesome 6 for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --text: #f0f0f0;
+      --text-soft: #b0b0b0;
+      --accent: #ffffff;
+      --border: #2a2a2a;
+      --shadow-glow: 0 0 12px rgba(255, 255, 255, 0.6);
+      --transition-speed: 0.25s;
+    }
+
+    body.light-mode {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --text: #1e1e1e;
+      --text-soft: #4a4a4a;
+      --accent: #111111;
+      --border: #dcdcdc;
+      --shadow-glow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      transition: background 0.3s, color 0.3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ----- sticky navbar ----- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      backdrop-filter: blur(12px);
+      background: rgba(18, 18, 18, 0.8);
+      transition: background 0.3s, border 0.3s;
+    }
+
+    body.light-mode .navbar {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-toggle-btn {
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      color: var(--accent);
+      cursor: pointer;
+      filter: drop-shadow(0 0 8px white);
+      transition: transform 0.2s, filter 0.3s;
+      background: transparent;
+      padding: 0.2rem;
+      line-height: 1;
+    }
+
+    body.light-mode .theme-toggle-btn {
+      filter: drop-shadow(0 0 6px #222);
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 2rem;
+      transition: all 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-btn:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .nav-btn.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+      font-weight: 700;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .icon-link {
+      color: var(--text);
+      font-size: 1.7rem;
+      transition: color 0.2s, transform 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .icon-link:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .translate-icon {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.7rem;
+      cursor: pointer;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .translate-icon:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* main content */
+    .main-content {
+      flex: 1;
+      padding: 2rem 2rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      animation: fadeSlide 0.35s ease;
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0.4; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* pages */
+    .page {
+      display: none;
+    }
+
+    .page.active-page {
+      display: block;
+    }
+
+    /* home */
+    .home-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      text-align: center;
+    }
+
+    .big-title {
+      font-size: clamp(3.5rem, 12vw, 7rem);
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #ffffff, #c0c0c0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    body.light-mode .big-title {
+      background: linear-gradient(to right, #1a1a1a, #4a4a4a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: var(--text-soft);
+      max-width: 600px;
+    }
+
+    /* projects layout */
+    .projects-layout {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .vertical-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      min-width: 160px;
+      border-right: 1px solid var(--border);
+      padding-right: 1.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-soft);
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tab-btn.active-tab {
+      color: var(--accent);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .tab-content-area {
+      flex: 1;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .center-frame {
+      flex: 2;
+      min-width: 280px;
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .right-frame {
+      flex: 1.2;
+      min-width: 220px;
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 1.5rem;
+      color: var(--text);
+    }
+
+    .game-image-link img {
+      width: 100%;
+      border-radius: 16px;
+      transition: transform 0.2s;
+    }
+
+    .game-image-link img:hover {
+      transform: scale(1.02);
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+    }
+
+    .ui-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .top-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .small-img {
+      flex: 1;
+      cursor: pointer;
+      border-radius: 12px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      aspect-ratio: 1/0.9;
+      transition: transform 0.2s;
+    }
+
+    .large-img {
+      width: 100%;
+      cursor: pointer;
+      border-radius: 16px;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    .small-img:hover, .large-img:hover {
+      transform: scale(1.02);
+    }
+
+    /* lightbox (zoom) */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 85%;
+      border-radius: 12px;
+    }
+
+    /* reviews */
+    .reviews-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 2rem;
+      padding: 1rem 0.5rem;
+      scroll-behavior: smooth;
+    }
+
+    .review-card {
+      min-width: 280px;
+      max-width: 320px;
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 1.8rem;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+
+    /* information */
+    .info-scroll {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .bold-center {
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .default-text {
+      color: var(--text-soft);
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+      .nav-center {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
-<body>
-    <h1>Hello World!</h1>
-    <p>Welcome to my GitHub Pages website.</p>
+<body class="dark-mode">
+  <nav class="navbar">
+    <div class="nav-left">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Switch theme">
+        <i class="fas fa-sun"></i>
+      </button>
+    </div>
+    <div class="nav-center">
+      <button class="nav-btn active" data-page="home">Home</button>
+      <button class="nav-btn" data-page="projects">Projects</button>
+      <button class="nav-btn" data-page="reviews">Reviews</button>
+      <button class="nav-btn" data-page="information">Information</button>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.roblox.com" target="_blank" class="icon-link" title="Roblox"><i class="fab fa-roblox"></i></a>
+      <a href="https://funpay.com" target="_blank" class="icon-link" title="Funpay"><i class="fas fa-wallet"></i></a>
+      <button id="translateBtn" class="translate-icon" title="Translate Russian/English"><i class="fas fa-language"></i></button>
+    </div>
+  </nav>
+
+  <div class="main-content" id="mainContent">
+    <!-- Home Page -->
+    <div id="homePage" class="page active-page">
+      <div class="home-container">
+        <h1 class="big-title">NpZoner</h1>
+        <p class="subtitle" id="homeDesc">veteran roblox developer specialized on scripting with over 6 years of experience</p>
+      </div>
+    </div>
+
+    <!-- Projects Page -->
+    <div id="projectsPage" class="page">
+      <div class="projects-layout">
+        <div class="vertical-tabs">
+          <button class="tab-btn active-tab" data-tab="games">Games</button>
+          <button class="tab-btn" data-tab="scripting">Scripting</button>
+          <button class="tab-btn" data-tab="uidesign">Ui-Design</button>
+        </div>
+        <div class="tab-content-area" id="tabContentArea">
+          <!-- dynamic content injected via js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews Page -->
+    <div id="reviewsPage" class="page">
+      <h2 style="margin-bottom:1.5rem; font-size:2rem;">Community reviews</h2>
+      <div class="reviews-scroll" id="reviewsContainer">
+        <div class="review-card">
+          <p style="font-weight:bold; font-size:1.3rem;">@AlexDev</p>
+          <p>"NpZoner's scripts are incredibly optimized. Best systems I've used."</p>
+          <p style="color:var(--text-soft); margin-top:0.8rem;">⭐ 5/5</p>
+        </div>
+        <div class="review-card">
+          <p style="font-weight:bold; font-size:1.3rem;">@MiaBuilds</p>
+          <p>"Clean UI design and fast delivery. Highly recommended for Roblox projects."</p>
+          <p style="color:var(--text-soft); margin-top:0.8rem;">⭐ 5/5</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information Page -->
+    <div id="informationPage" class="page">
+      <div class="info-scroll" id="infoScroll">
+        <div class="bold-center">About NpZoner</div>
+        <div class="default-text">NpZoner is a veteran Roblox developer with deep expertise in Lua scripting, game architecture, and UI/UX design. Over 6 years of hands-on experience creating immersive experiences.</div>
+        <div class="bold-center">Skills</div>
+        <div class="default-text">Advanced scripting, OOP, module frameworks, datastore handling, smooth UI animations, and performance optimization.</div>
+        <div class="default-text">Collaborated with top Roblox groups and delivered 30+ commissioned projects.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox for image zoom -->
+  <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+    <img id="lightboxImg" src="" alt="zoomed image">
+  </div>
+
+  <script>
+    (function() {
+      // ----- state -----
+      let currentPage = 'home';
+      let currentTab = 'games'; // default projects tab
+      let isRussian = false;   // false = english
+
+      // DOM elements
+      const body = document.body;
+      const themeToggle = document.getElementById('themeToggle');
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const pages = {
+        home: document.getElementById('homePage'),
+        projects: document.getElementById('projectsPage'),
+        reviews: document.getElementById('reviewsPage'),
+        information: document.getElementById('informationPage')
+      };
+      const tabContentArea = document.getElementById('tabContentArea');
+      const translateBtn = document.getElementById('translateBtn');
+      const homeDesc = document.getElementById('homeDesc');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+
+      // translations map (simple key-value for visible texts)
+      const translations = {
+        homeDesc: {
+          en: "veteran roblox developer specialized on scripting with over 6 years of experience",
+          ru: "опытный разработчик Roblox, специализируюсь на скриптинге, более 6 лет опыта"
+        },
+        gamesTab: { en: "Games", ru: "Игры" },
+        scriptingTab: { en: "Scripting", ru: "Скриптинг" },
+        uiTab: { en: "Ui-Design", ru: "Дизайн UI" },
+        reviewsTitle: { en: "Community reviews", ru: "Отзывы сообщества" },
+        review1name: { en: "@AlexDev", ru: "@АлексDev" },
+        review1text: { en: "\"NpZoner's scripts are incredibly optimized. Best systems I've used.\"", ru: "\"Скрипты NpZoner невероятно оптимизированы. Лучшие системы.\"" },
+        review2name: { en: "@MiaBuilds", ru: "@МияСтроит" },
+        review2text: { en: "\"Clean UI design and fast delivery. Highly recommended for Roblox projects.\"", ru: "\"Чистый дизайн и быстрая работа. Очень рекомендую.\"" },
+        infoBold1: { en: "About NpZoner", ru: "О NpZoner" },
+        infoText1: { en: "NpZoner is a veteran Roblox developer with deep expertise in Lua scripting, game architecture, and UI/UX design. Over 6 years of hands-on experience creating immersive experiences.", ru: "NpZoner — опытный разработчик Roblox с глубокими знаниями Lua, архитектуры игр и UI/UX. Более 6 лет практики." },
+        infoBold2: { en: "Skills", ru: "Навыки" },
+        infoText2: { en: "Advanced scripting, OOP, module frameworks, datastore handling, smooth UI animations, and performance optimization.", ru: "Продвинутый скриптинг, ООП, модульные фреймворки, работа с хранилищами, анимации UI, оптимизация." },
+        infoText3: { en: "Collaborated with top Roblox groups and delivered 30+ commissioned projects.", ru: "Сотрудничал с топовыми группами Roblox, выполнил 30+ заказных проектов." }
+      };
+
+      // ----- functions -----
+      function switchPage(pageId) {
+        if (currentPage === pageId) return;
+        // hide all
+        Object.values(pages).forEach(p => p.classList.remove('active-page'));
+        pages[pageId].classList.add('active-page');
+        currentPage = pageId;
+
+        // update nav active
+        navButtons.forEach(btn => {
+          const btnPage = btn.getAttribute('data-page');
+          if (btnPage === pageId) btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+
+        // if projects page opened, ensure tab content rendered
+        if (pageId === 'projects') {
+          renderTabContent(currentTab);
+          activateTabButton(currentTab);
+        }
+
+        // quick re-translate if needed
+        if (isRussian) applyRussianTexts();
+      }
+
+      function activateTabButton(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          const tab = btn.getAttribute('data-tab');
+          if (tab === tabId) btn.classList.add('active-tab');
+          else btn.classList.remove('active-tab');
+        });
+      }
+
+      // render projects tab content based on tabId
+      function renderTabContent(tabId) {
+        if (!tabContentArea) return;
+        currentTab = tabId;
+        let html = '';
+        if (tabId === 'games') {
+          html = `
+            <div class="center-frame">
+              <a href="https://www.roblox.com" target="_blank" class="game-image-link">
+                <img src="https://placehold.co/600x400/2d2d2d/white?text=Roblox+Game+Preview" alt="Roblox game">
+              </a>
+            </div>
+            <div class="right-frame">
+              <h3>${isRussian ? 'Игровой проект' : 'Game Project'}</h3>
+              <p>${isRussian ? 'Нажмите на изображение, чтобы перейти к игре Roblox. Захватывающий геймплей и продуманные механики.' : 'Click image to visit Roblox game. Engaging gameplay with advanced mechanics.'}</p>
+            </div>
+          `;
+        } else if (tabId === 'scripting') {
+          html = `
+            <div class="center-frame">
+              <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="right-frame">
+              <h3>${isRussian ? 'Скриптинг демо' : 'Scripting demo'}</h3>
+              <p>${isRussian ? 'Видео демонстрирует сложную систему инвентаря и плавные переходы.' : 'Video showcases complex inventory system and smooth transitions.'}</p>
+            </div>
+          `;
+        } else if (tabId === 'uidesign') {
+          html = `
+            <div class="center-frame">
+              <div class="ui-gallery">
+                <div class="top-row">
+                  <img src="https://placehold.co/300x200/3a3a3a/white?text=UI+1" class="small-img" onclick="openLightbox(this.src)" alt="UI small 1">
+                  <img src="https://placehold.co/300x200/4a4a4a/white?text=UI+2" class="small-img" onclick="openLightbox(this.src)" alt="UI small 2">
+                  <img src="https://placehold.co/300x200/5a5a5a/white?text=UI+3" class="small-img" onclick="openLightbox(this.src)" alt="UI small 3">
+                </div>
+                <img src="https://placehold.co/600x340/2a2a2a/white?text=Dashboard+Preview" class="large-img" onclick="openLightbox(this.src)" alt="UI large">
+              </div>
+            </div>
+            <div class="right-frame">
+              <h3>${isRussian ? 'Дизайн интерфейсов' : 'UI Design'}</h3>
+              <p>${isRussian ? 'Чистые современные интерфейсы. Нажмите на изображение для увеличения.' : 'Clean modern interfaces. Click any image to zoom.'}</p>
+            </div>
+          `;
+        }
+        tabContentArea.innerHTML = html;
+      }
+
+      window.openLightbox = function(src) {
+        lightboxImg.src = src;
+        lightbox.style.display = 'flex';
+      };
+
+      // theme toggle
+      function setTheme(isLight) {
+        if (isLight) {
+          body.classList.add('light-mode');
+          body.classList.remove('dark-mode');
+          themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+          body.classList.remove('light-mode');
+          body.classList.add('dark-mode');
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const isLight = body.classList.contains('light-mode');
+        setTheme(!isLight);
+      });
+
+      // translate function
+      function applyRussianTexts() {
+        // home description
+        if (homeDesc) homeDesc.textContent = isRussian ? translations.homeDesc.ru : translations.homeDesc.en;
+        // tab buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          const tab = btn.getAttribute('data-tab');
+          if (tab === 'games') btn.textContent = isRussian ? translations.gamesTab.ru : translations.gamesTab.en;
+          else if (tab === 'scripting') btn.textContent = isRussian ? translations.scriptingTab.ru : translations.scriptingTab.en;
+          else if (tab === 'uidesign') btn.textContent = isRussian ? translations.uiTab.ru : translations.uiTab.en;
+        });
+        // reviews page texts
+        const reviewCards = document.querySelectorAll('.review-card');
+        if (reviewCards.length >= 2) {
+          const firstCard = reviewCards[0];
+          const secondCard = reviewCards[1];
+          if (firstCard) {
+            const nameEl = firstCard.querySelector('p:first-child');
+            const textEl = firstCard.querySelector('p:nth-child(2)');
+            if (nameEl) nameEl.textContent = isRussian ? translations.review1name.ru : translations.review1name.en;
+            if (textEl) textEl.textContent = isRussian ? translations.review1text.ru : translations.review1text.en;
+          }
+          if (secondCard) {
+            const nameEl2 = secondCard.querySelector('p:first-child');
+            const textEl2 = secondCard.querySelector('p:nth-child(2)');
+            if (nameEl2) nameEl2.textContent = isRussian ? translations.review2name.ru : translations.review2name.en;
+            if (textEl2) textEl2.textContent = isRussian ? translations.review2text.ru : translations.review2text.en;
+          }
+        }
+        // info page
+        const infoBolds = document.querySelectorAll('#informationPage .bold-center');
+        const infoTexts = document.querySelectorAll('#informationPage .default-text');
+        if (infoBolds.length >= 2) {
+          infoBolds[0].textContent = isRussian ? translations.infoBold1.ru : translations.infoBold1.en;
+          infoBolds[1].textContent = isRussian ? translations.infoBold2.ru : translations.infoBold2.en;
+        }
+        if (infoTexts.length >= 3) {
+          infoTexts[0].textContent = isRussian ? translations.infoText1.ru : translations.infoText1.en;
+          infoTexts[1].textContent = isRussian ? translations.infoText2.ru : translations.infoText2.en;
+          infoTexts[2].textContent = isRussian ? translations.infoText3.ru : translations.infoText3.en;
+        }
+        // re-render projects tab to update dynamic description
+        if (currentPage === 'projects') {
+          renderTabContent(currentTab);
+          activateTabButton(currentTab);
+        }
+        // reviews title
+        const reviewsTitle = document.querySelector('#reviewsPage h2');
+        if (reviewsTitle) reviewsTitle.textContent = isRussian ? translations.reviewsTitle.ru : translations.reviewsTitle.en;
+      }
+
+      translateBtn.addEventListener('click', () => {
+        isRussian = !isRussian;
+        applyRussianTexts();
+      });
+
+      // nav buttons
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const pageId = e.currentTarget.getAttribute('data-page');
+          if (pageId) switchPage(pageId);
+        });
+      });
+
+      // projects tab clicks (delegation)
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-btn')) {
+          const tabId = e.target.getAttribute('data-tab');
+          if (tabId && currentPage === 'projects') {
+            currentTab = tabId;
+            renderTabContent(tabId);
+            activateTabButton(tabId);
+          }
+        }
+      });
+
+      // initial render & default tab
+      setTheme(false); // dark start
+      // ensure projects tab content prepared (but hidden)
+      renderTabContent('games');
+      activateTabButton('games');
+      // default english texts
+      applyRussianTexts(); // apply en
+      // lightbox close via click
+    })();
+  </script>
 </body>
 </html>
